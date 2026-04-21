@@ -10,13 +10,8 @@ export class Cart {
     this.items.push(item);
   }
 
-  removeItem(item: PurchasableItem): boolean {
-    const index = this.items.indexOf(item);
-    if (index !== -1) {
-      this.items.splice(index, 1);
-      return true;
-    }
-    return false;
+  removeItem(item: PurchasableItem): void {
+    this.items = this.items.filter(i => i !== item);
   }
 
   getTotal(): number {

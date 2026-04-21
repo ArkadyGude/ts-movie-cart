@@ -53,16 +53,19 @@ describe('Cart class', () => {
   test('removeItem removes existing item', () => {
     cart.addItem(movie1);
     cart.addItem(movie2);
-    expect(cart.removeItem(movie1)).toBe(true);
+    cart.removeItem(movie1);
     expect(cart.getItems()).toHaveLength(1);
     expect(cart.getItems()[0]).toBe(movie2);
     expect(cart.getTotal()).toBe(200);
   });
 
-  test('removeItem returns false for non-existing item', () => {
+  test('removeItem does nothing for non-existing item', () => {
     const nonExisting = new MockItem(999, 'ghost');
-    expect(cart.removeItem(nonExisting)).toBe(false);
-    expect(cart.getCount()).toBe(0);
+    cart.addItem(movie1);
+    cart.removeItem(nonExisting);
+    expect(cart.getCount()).toBe(1);
+    expect(cart.getTotal()).toBe(100);
+    expect(cart.getItems()).toEqual([movie1]);
   });
 
   test('clear removes all items', () => {
